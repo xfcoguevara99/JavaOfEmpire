@@ -1,4 +1,4 @@
-package ifsc.joe.classes;
+package ifsc.joe.domain.impl;
 
 import ifsc.joe.enums.Direcao;
 
@@ -10,8 +10,7 @@ public class Aldeao {
 
     public static final String NOME_IMAGEM = "aldeao";
 
-    private int posX;
-    private int posY;
+    private int posX, posY;
     private boolean atacando;
     private Image icone;
 

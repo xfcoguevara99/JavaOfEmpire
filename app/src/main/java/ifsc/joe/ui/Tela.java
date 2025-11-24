@@ -1,6 +1,6 @@
-package ifsc.joe;
+package ifsc.joe.ui;
 
-import ifsc.joe.classes.Aldeao;
+import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
@@ -31,7 +31,7 @@ public class Tela extends JPanel {
         //TODO preciso ser melhorado
 
         // percorrendo a lista de aldeões e pedindo para cada um se desenhar na tela
-        aldeoes.forEach(aldeao -> aldeao.desenhar(g, this));
+        this.aldeoes.forEach(aldeao -> aldeao.desenhar(g, this));
 
         // liberando o contexto gráfico
         g.dispose();
@@ -47,7 +47,7 @@ public class Tela extends JPanel {
     public void criarAldeao(int x, int y) {
         Aldeao a = new Aldeao(x, y);
         a.desenhar(super.getGraphics(), this);
-        aldeoes.add(a);
+        this.aldeoes.add(a);
     }
 
     /**
@@ -58,7 +58,7 @@ public class Tela extends JPanel {
     public void movimentarAldeoes(Direcao direcao) {
         //TODO preciso ser melhorado
 
-        aldeoes.forEach(aldeao -> aldeao.mover(direcao, this.getWidth(), this.getHeight()));
+        this.aldeoes.forEach(aldeao -> aldeao.mover(direcao, this.getWidth(), this.getHeight()));
 
         // Depois que as coordenadas foram atualizadas é necessário repintar o JPanel
         this.repaint();
@@ -72,7 +72,7 @@ public class Tela extends JPanel {
         //TODO preciso ser melhorado
 
         // Percorrendo a lista de aldeões e pedindo para todos atacarem
-        aldeoes.forEach(Aldeao::atacar);
+        this.aldeoes.forEach(Aldeao::atacar);
 
         // Fazendo o JPanel ser redesenhado
         this.repaint();
