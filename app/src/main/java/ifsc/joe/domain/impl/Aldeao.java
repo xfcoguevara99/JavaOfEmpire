@@ -1,23 +1,22 @@
 package ifsc.joe.domain.impl;
 
+import ifsc.joe.constantes.Constantes;
+import ifsc.joe.core.Personagem;
 import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-public class Aldeao {
+public class Aldeao extends Personagem{
 
     public static final String NOME_IMAGEM = "aldeao";
-
-    private int posX, posY;
     private boolean atacando;
     private Image icone;
 
     public Aldeao(int x, int y) {
+        super(Constantes.VIDA_ALDEAO,Constantes.ATAQUE_ALDEAO,Constantes.VELOCIDADE_ALDEAO,x,y);
         this.icone = this.carregarImagem(NOME_IMAGEM);
-        this.posX = x;
-        this.posY = y;
         this.atacando = false;
     }
 
@@ -57,16 +56,5 @@ public class Aldeao {
         this.atacando = !this.atacando;
     }
 
-    /**
-     * Metodo auxiliar para carregar uma imagem do disco
-     *
-     * @param imagem Caminho da imagem
-     * @return Retorna um objeto Image
-     */
-    private Image carregarImagem(String imagem) {
-        return new ImageIcon(Objects.requireNonNull(
-                getClass().getClassLoader().getResource("./"+imagem+".png")
-        )).getImage();
-    }
 
 }
