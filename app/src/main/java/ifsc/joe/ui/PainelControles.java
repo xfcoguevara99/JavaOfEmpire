@@ -65,10 +65,7 @@ public class PainelControles {
 
         bCriaArqueiro.addActionListener(e ->criarArqueiroAleatorio());
 
-        bCriaCavaleiro.addActionListener(e -> {
-            //TODO: Implementar criação de cavaleiro
-            mostrarMensagemNaoImplementado("Criar Cavaleiro");
-        });
+        bCriaCavaleiro.addActionListener(e -> criarCavalheiroAleatorio() );
     }
 
     /**
@@ -87,6 +84,9 @@ public class PainelControles {
     }
     private void criarArqueiroAleatorio() {
         getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+    }
+    private void criarCavalheiroAleatorio() {
+        getTela().criarCavalheiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
     }
 
     /**
