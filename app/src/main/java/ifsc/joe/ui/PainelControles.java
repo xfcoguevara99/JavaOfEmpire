@@ -1,5 +1,7 @@
 package ifsc.joe.ui;
 
+import ifsc.joe.core.Personagem;
+import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
@@ -22,6 +24,7 @@ public class PainelControles {
     private JButton bCriaAldeao;
     private JButton bCriaArqueiro;
     private JButton bCriaCavaleiro;
+    private ButtonGroup grupoSel;
     private JRadioButton todosRadioButton;
     private JRadioButton aldeaoRadioButton;
     private JRadioButton arqueiroRadioButton;
@@ -45,16 +48,36 @@ public class PainelControles {
         configurarBotoesMovimento();
         configurarBotoesCriacao();
         configurarBotaoAtaque();
+        configurarFiltro();
+
+    }
+    //configura botoes de filtrado
+    private void configurarFiltro(){
+        this.grupoSel = new ButtonGroup();
+        aldeaoRadioButton.setActionCommand("ALDEAO");
+        arqueiroRadioButton.setActionCommand("ARQUEIRO");
+        cavaleiroRadioButton.setActionCommand("CAVALEIRO");
+        grupoSel.add(todosRadioButton);
+        grupoSel.add(aldeaoRadioButton);
+        grupoSel.add(cavaleiroRadioButton);
+        grupoSel.add(arqueiroRadioButton);
+        todosRadioButton.setSelected(true);
     }
 
     /**
      * Configura todos os listeners dos botões de movimento
      */
     private void configurarBotoesMovimento() {
-        buttonCima.addActionListener(e -> getTela().movimentarAldeoes(Direcao.CIMA));
-        buttonBaixo.addActionListener(e -> getTela().movimentarAldeoes(Direcao.BAIXO));
-        buttonEsquerda.addActionListener(e -> getTela().movimentarAldeoes(Direcao.ESQUERDA));
-        buttonDireita.addActionListener(e -> getTela().movimentarAldeoes(Direcao.DIREITA));
+        buttonCima.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.CIMA));
+        buttonBaixo.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.BAIXO));
+        buttonEsquerda.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.ESQUERDA));
+        buttonDireita.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.DIREITA));
+        //buttonCima.addActionListener(e -> System.out.println(grupoSel.getSelection().getActionCommand()));
+        //buttonCima.addActionListener(e -> getTela().movimentarAldeoes(Direcao.CIMA));
+        //buttonBaixo.addActionListener(e -> getTela().movimentarAldeoes(Direcao.BAIXO));
+        //buttonEsquerda.addActionListener(e -> getTela().movimentarAldeoes(Direcao.ESQUERDA));
+       // buttonDireita.addActionListener(e -> getTela().movimentarAldeoes(Direcao.DIREITA));
+
     }
 
     /**
@@ -62,9 +85,7 @@ public class PainelControles {
      */
     private void configurarBotoesCriacao() {
         bCriaAldeao.addActionListener(e -> criarAldeaoAleatorio());
-
         bCriaArqueiro.addActionListener(e ->criarArqueiroAleatorio());
-
         bCriaCavaleiro.addActionListener(e -> criarCavalheiroAleatorio() );
     }
 

@@ -20,5 +20,11 @@ public class Cavaleiro extends Personagem {
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }
 
+    //metodos de acesso
     public boolean isNoCavalho() {return noCavalho;}
+
+    //implementacação das interfaces
+    public void montarCavalo(){
+        this.noCavalho = !this.noCavalho;
+    }
 }

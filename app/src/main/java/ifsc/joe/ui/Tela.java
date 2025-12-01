@@ -1,5 +1,6 @@
 package ifsc.joe.ui;
 
+import ifsc.joe.core.Personagem;
 import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.domain.impl.Arqueiro;
 import ifsc.joe.domain.impl.Cavaleiro;
@@ -11,10 +12,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Tela extends JPanel {
-
-    private final Set<Aldeao> aldeoes;
-    private final Set<Arqueiro> arqueiros;
-    private final Set<Cavaleiro> cavaleiros;
+    private final Set<Personagem> personagens;
+    //private final Set<Aldeao> aldeoes;
+    //private final Set<Arqueiro> arqueiros;
+    //private final Set<Cavaleiro> cavaleiros;
 
 
     public Tela() {
@@ -23,9 +24,10 @@ public class Tela extends JPanel {
         this.setBackground(Color.white);
 
         //provavelmente vai ser colocados num container so
-        this.aldeoes = new HashSet<>();
-        this.arqueiros = new HashSet<>();
-        this.cavaleiros = new HashSet<>();
+        //this.aldeoes = new HashSet<>();
+        //this.arqueiros = new HashSet<>();
+        //this.cavaleiros = new HashSet<>();
+        this.personagens = new HashSet<>();
     }
 
     /**
@@ -39,9 +41,10 @@ public class Tela extends JPanel {
         //TODO preciso ser melhorado
 
         // percorrendo a lista de aldeões e pedindo para cada um se desenhar na tela
-        this.aldeoes.forEach(aldeao -> aldeao.desenhar(g, this));
-        this.arqueiros.forEach(arqueiro -> arqueiro.desenhar(g, this));
-        this.cavaleiros.forEach(cavaleiro -> cavaleiro.desenhar(g, this));
+        this.personagens.forEach(personagem -> personagem.desenhar(g,this));
+        //this.aldeoes.forEach(aldeao -> aldeao.desenhar(g, this));
+        //this.arqueiros.forEach(arqueiro -> arqueiro.desenhar(g, this));
+        //this.cavaleiros.forEach(cavaleiro -> cavaleiro.desenhar(g, this));
         // liberando o contexto gráfico
         g.dispose();
     }
@@ -56,17 +59,20 @@ public class Tela extends JPanel {
     public void criarAldeao(int x, int y) {
         Aldeao a = new Aldeao(x, y);
         a.desenhar(super.getGraphics(), this);
-        this.aldeoes.add(a);
+        this.personagens.add(a);
+        //this.aldeoes.add(a);
     }
     public void criarArqueiro(int x, int y) {
         Arqueiro a = new Arqueiro(x, y);
         a.desenhar(super.getGraphics(), this);
-        this.arqueiros.add(a);
+        this.personagens.add(a);
+        //this.arqueiros.add(a);
     }
     public void criarCavalheiro(int x, int y) {
         Cavaleiro a = new Cavaleiro(x, y);
         a.desenhar(super.getGraphics(), this);
-        this.cavaleiros.add(a);
+        this.personagens.add(a);
+        //this.cavaleiros.add(a);
     }
 
 
@@ -77,10 +83,42 @@ public class Tela extends JPanel {
      */
     public void movimentarAldeoes(Direcao direcao) {
         //TODO preciso ser melhorado
-
-        this.aldeoes.forEach(aldeao -> aldeao.mover(direcao, this.getWidth(), this.getHeight()));
+        for(Personagem personagem:personagens){
+            if(personagem instanceof Aldeao){
+                personagem.mover(direcao,this.getWidth(), this.getHeight());
+            }
+        }
+//        this.personagens.forEach(aldeao -> aldeao.mover());
+//        this.aldeoes.forEach(aldeao -> aldeao.mover(direcao, this.getWidth(), this.getHeight()));
 
         // Depois que as coordenadas foram atualizadas é necessário repintar o JPanel
+        this.repaint();
+    }
+
+    public void moverPersonagens(String p,Direcao direcao) {
+        if(p == null){
+            for(Personagem i:personagens){
+                i.mover(direcao,this.getWidth(), this.getHeight());
+            }
+        } else if(p.equals("ALDEAO")){
+            for(Personagem i:personagens){
+                if(i instanceof Aldeao){
+                    i.mover(direcao,this.getWidth(), this.getHeight());
+                }
+            }
+        } else if (p.equals("ARQUEIRO")) {
+            for(Personagem i:personagens){
+                if(i instanceof Arqueiro){
+                    i.mover(direcao,this.getWidth(), this.getHeight());
+                }
+            }
+        }else if (p.equals("CAVALEIRO")) {
+            for(Personagem i:personagens){
+                if(i instanceof Cavaleiro){
+                    i.mover(direcao,this.getWidth(), this.getHeight());
+                }
+            }
+        }
         this.repaint();
     }
 
@@ -92,7 +130,12 @@ public class Tela extends JPanel {
         //TODO preciso ser melhorado
 
         // Percorrendo a lista de aldeões e pedindo para todos atacarem
-        this.aldeoes.forEach(Aldeao::atacar);
+        for(Personagem personagem:personagens){
+            if(personagem instanceof Aldeao){
+                ((Aldeao) personagem).atacar();
+            }
+        }
+        //this.aldeoes.forEach(Aldeao::atacar);
 
         // Fazendo o JPanel ser redesenhado
         this.repaint();
