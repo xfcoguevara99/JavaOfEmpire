@@ -12,7 +12,6 @@ public class Aldeao extends Personagem{
 
     public static final String NOME_IMAGEM = "aldeao";
     private boolean atacando;
-    private Image icone;
 
     public Aldeao(int x, int y) {
         super(Constantes.VIDA_ALDEAO,Constantes.ATAQUE_ALDEAO,Constantes.VELOCIDADE_ALDEAO,x,y);
@@ -32,25 +31,6 @@ public class Aldeao extends Personagem{
         // desenhando de fato a imagem no pai
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }
-
-    /**
-     * Atualiza as coordenadas X e Y do personagem
-     *
-     * @param direcao indica a direcao a ir.
-     */
-    public void mover(Direcao direcao, int maxLargura, int maxAltura) {
-        switch (direcao) {
-            case CIMA     -> this.posY -= 10;
-            case BAIXO    -> this.posY += 10;
-            case ESQUERDA -> this.posX -= 10;
-            case DIREITA  -> this.posX += 10;
-        }
-
-        //Não deixa a imagem ser desenhada fora dos limites do JPanel pai
-        this.posX = Math.min(Math.max(0, this.posX), maxLargura - this.icone.getWidth(null));
-        this.posY = Math.min(Math.max(0, this.posY), maxAltura - this.icone.getHeight(null));
-    }
-
 
     public void atacar() {
         this.atacando = !this.atacando;

@@ -1,5 +1,5 @@
 package ifsc.joe.enums;
 
-public enum Recuros {
+public enum Recursos {
     OURO,MADEIRA,COMIDA
 }

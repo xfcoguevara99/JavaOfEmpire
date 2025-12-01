@@ -1,6 +1,7 @@
 package ifsc.joe.ui;
 
 import ifsc.joe.domain.impl.Aldeao;
+import ifsc.joe.domain.impl.Arqueiro;
 import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
@@ -11,13 +12,17 @@ import java.util.Set;
 public class Tela extends JPanel {
 
     private final Set<Aldeao> aldeoes;
+    private final Set<Arqueiro> arqueiros;
+
 
     public Tela() {
-
         //TODO preciso ser melhorado
 
         this.setBackground(Color.white);
+
+        //provavelmente vai ser colocados num container so
         this.aldeoes = new HashSet<>();
+        this.arqueiros = new HashSet<>();
     }
 
     /**
@@ -32,7 +37,7 @@ public class Tela extends JPanel {
 
         // percorrendo a lista de aldeões e pedindo para cada um se desenhar na tela
         this.aldeoes.forEach(aldeao -> aldeao.desenhar(g, this));
-
+        this.arqueiros.forEach(arqueiro -> arqueiro.desenhar(g, this));
         // liberando o contexto gráfico
         g.dispose();
     }
@@ -49,6 +54,12 @@ public class Tela extends JPanel {
         a.desenhar(super.getGraphics(), this);
         this.aldeoes.add(a);
     }
+    public void criarArqueiro(int x, int y) {
+        Arqueiro a = new Arqueiro(x, y);
+        a.desenhar(super.getGraphics(), this);
+        this.arqueiros.add(a);
+    }
+
 
     /**
      * Atualiza as coordenadas X ou Y de todos os aldeoes

@@ -11,7 +11,7 @@ import static ifsc.joe.domain.impl.Aldeao.NOME_IMAGEM;
 public abstract class Personagem {
     protected int vida,ataque,posX,posY;
     protected double velocidade;
-    private Image icone;
+    protected Image icone;
 
     protected Personagem(int vida, int ataque, double velocidade, int posX, int posY) {
         this.vida = vida;
@@ -44,6 +44,10 @@ public abstract class Personagem {
                 getClass().getClassLoader().getResource("./"+imagem+".png")
         )).getImage();
     }
+
+    //metodos abastractos
+    public abstract void desenhar(Graphics g, JPanel painel);
+
     //metodo de acceso
     public int getVida() {return vida;}
     public int getAtaque() {return ataque;}

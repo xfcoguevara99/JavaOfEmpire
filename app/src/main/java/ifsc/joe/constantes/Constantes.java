@@ -8,6 +8,7 @@ public final class Constantes {
     public static final int VIDA_ARQUEIRO = 35;
     public static final int ATAQUE_ARQUEIRO = 1;
     public static final double VELOCIDADE_ARQUEIRO = 0.8;
+    public static final int FlECHAS_INICIAIS = 6;
 
     public static final int VIDA_CAVALHEIRO = 35;
     public static final int ATAQUE_CAVALHEIRO = 1;

@@ -3,6 +3,7 @@ package ifsc.joe.ui;
 import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -62,10 +63,7 @@ public class PainelControles {
     private void configurarBotoesCriacao() {
         bCriaAldeao.addActionListener(e -> criarAldeaoAleatorio());
 
-        bCriaArqueiro.addActionListener(e -> {
-            //TODO: Implementar criação de arqueiro
-            mostrarMensagemNaoImplementado("Criar Arqueiro");
-        });
+        bCriaArqueiro.addActionListener(e ->criarArqueiroAleatorio());
 
         bCriaCavaleiro.addActionListener(e -> {
             //TODO: Implementar criação de cavaleiro
@@ -83,12 +81,12 @@ public class PainelControles {
     /**
      * Cria um aldeão em posição aleatória na tela.
      */
-    private void criarAldeaoAleatorio() {
-        final int PADDING = 50;
-        int posX = sorteio.nextInt(painelTela.getWidth() - PADDING);
-        int posY = sorteio.nextInt(painelTela.getHeight() - PADDING);
 
-        getTela().criarAldeao(posX, posY);
+    private void criarAldeaoAleatorio() {
+        getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+    }
+    private void criarArqueiroAleatorio() {
+        getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
     }
 
     /**
@@ -126,5 +124,14 @@ public class PainelControles {
      */
     private void createUIComponents() {
         this.painelTela = new Tela();
+    }
+
+    //metodo privado para criar a posição aleatoria na tela
+    private HashMap<String,Integer> posicaoRandomTela() {
+        HashMap<String,Integer> coordenadas = new HashMap<>();
+        final int PADDING = 50;
+        coordenadas.put("HORIZONTAL",sorteio.nextInt(painelTela.getWidth() - PADDING));
+        coordenadas.put("VERTICAL",sorteio.nextInt(painelTela.getHeight() - PADDING));
+        return coordenadas;
     }
 }
