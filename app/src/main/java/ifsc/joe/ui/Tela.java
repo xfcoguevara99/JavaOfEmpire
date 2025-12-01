@@ -96,27 +96,23 @@ public class Tela extends JPanel {
     }
 
     public void moverPersonagens(String p,Direcao direcao) {
-        if(p == null){
-            for(Personagem i:personagens){
-                i.mover(direcao,this.getWidth(), this.getHeight());
+        Class<?> classe_filtro = null;
+        if (p != null) {
+            switch (p) {
+                case "ALDEAO":
+                    classe_filtro = Aldeao.class;
+                    break;
+                case "ARQUEIRO":
+                    classe_filtro = Arqueiro.class;
+                    break;
+                case "CAVALEIRO":
+                    classe_filtro = Cavaleiro.class;
+                    break;
             }
-        } else if(p.equals("ALDEAO")){
-            for(Personagem i:personagens){
-                if(i instanceof Aldeao){
-                    i.mover(direcao,this.getWidth(), this.getHeight());
-                }
-            }
-        } else if (p.equals("ARQUEIRO")) {
-            for(Personagem i:personagens){
-                if(i instanceof Arqueiro){
-                    i.mover(direcao,this.getWidth(), this.getHeight());
-                }
-            }
-        }else if (p.equals("CAVALEIRO")) {
-            for(Personagem i:personagens){
-                if(i instanceof Cavaleiro){
-                    i.mover(direcao,this.getWidth(), this.getHeight());
-                }
+        }
+        for (Personagem personagem : personagens) {
+            if ((classe_filtro == null) || (classe_filtro.isInstance(personagem))) {
+                personagem.mover(direcao, this.getWidth(), this.getHeight());
             }
         }
         this.repaint();

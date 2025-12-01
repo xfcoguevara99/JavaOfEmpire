@@ -51,6 +51,7 @@ public class PainelControles {
         configurarFiltro();
 
     }
+
     //configura botoes de filtrado
     private void configurarFiltro(){
         this.grupoSel = new ButtonGroup();
