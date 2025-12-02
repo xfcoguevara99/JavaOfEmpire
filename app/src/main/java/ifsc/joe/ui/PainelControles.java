@@ -22,7 +22,7 @@ public class PainelControles {
     private JButton bCriaAldeao;
     private JButton bCriaArqueiro;
     private JButton bCriaCavaleiro;
-    private ButtonGroup grupoSel;
+    private ButtonGroup grupoSel; //grupo de botonos seletores
     private JRadioButton todosRadioButton;
     private JRadioButton aldeaoRadioButton;
     private JRadioButton arqueiroRadioButton;
@@ -52,7 +52,6 @@ public class PainelControles {
 
     }
 
-    //configura botoes de filtrado
     private void configurarFiltro(){
         this.grupoSel = new ButtonGroup();
         aldeaoRadioButton.setActionCommand("ALDEAO");
@@ -73,53 +72,41 @@ public class PainelControles {
         buttonBaixo.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.BAIXO));
         buttonEsquerda.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.ESQUERDA));
         buttonDireita.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.DIREITA));
-        //buttonCima.addActionListener(e -> System.out.println(grupoSel.getSelection().getActionCommand()));
-        //buttonCima.addActionListener(e -> getTela().movimentarAldeoes(Direcao.CIMA));
-        //buttonBaixo.addActionListener(e -> getTela().movimentarAldeoes(Direcao.BAIXO));
-        //buttonEsquerda.addActionListener(e -> getTela().movimentarAldeoes(Direcao.ESQUERDA));
-       // buttonDireita.addActionListener(e -> getTela().movimentarAldeoes(Direcao.DIREITA));
-
     }
 
     /**
      * Configura todos os listeners dos botões de criação
      */
     private void configurarBotoesCriacao() {
-        bCriaAldeao.addActionListener(e -> criarAldeaoAleatorio());
-        bCriaArqueiro.addActionListener(e ->criarArqueiroAleatorio());
-        bCriaCavaleiro.addActionListener(e -> criarCavalheiroAleatorio() );
+        //bCriaAldeao.addActionListener(e -> criarAldeaoAleatorio());
+        bCriaAldeao.addActionListener(e -> getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
+        bCriaArqueiro.addActionListener(e ->getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
+        bCriaCavaleiro.addActionListener(e -> getTela().criarCavalheiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
     }
 
-    /**
-     * Configura o listener do botão de ataque
-     */
-   // private void configurarBotaoAtaque() {atacarButton.addActionListener(e -> getTela().atacarAldeoes());}
-    private void configurarBotaoAtaque() {atacarButton.addActionListener(e -> getTela().atacarPersonagens(grupoSel.getSelection().getActionCommand()));}
+    private void configurarBotaoAtaque() {atacarButton.addActionListener(e -> getTela().atacarGuerreiros(grupoSel.getSelection().getActionCommand()));}
+
     private void configurarBotaoMontar(){montarButton.addActionListener(e ->getTela().montarNoCavalo(grupoSel.getSelection().getActionCommand()));}
-    /**
-     * Cria um aldeão em posição aleatória na tela.
-     */
 
-    private void criarAldeaoAleatorio() {
-        getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
-    }
-    private void criarArqueiroAleatorio() {
-        getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
-    }
-    private void criarCavalheiroAleatorio() {
-        getTela().criarCavalheiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
-    }
+//    private void criarAldeaoAleatorio() {
+//        getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+//    }
+//
+//    private void criarArqueiroAleatorio() {
+//        getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+//    }
+//
+//    private void criarCavalheiroAleatorio() {
+//        getTela().criarCavalheiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+//    }
 
-    /**
-     * Exibe mensagem informando que a funcionalidade ainda não foi implementada.
-     */
-    private void mostrarMensagemNaoImplementado(String funcionalidade) {
-        JOptionPane.showMessageDialog(
-                painelPrincipal,
-                "Preciso ser implementado",
-                funcionalidade,
-                JOptionPane.INFORMATION_MESSAGE
-        );
+    //metodo privado para criar a posição aleatoria na tela
+    private HashMap<String,Integer> posicaoRandomTela() {
+        HashMap<String,Integer> coordenadas = new HashMap<>();
+        final int PADDING = 50;
+        coordenadas.put("HORIZONTAL",sorteio.nextInt(painelTela.getWidth() - PADDING));
+        coordenadas.put("VERTICAL",sorteio.nextInt(painelTela.getHeight() - PADDING));
+        return coordenadas;
     }
 
     /**
@@ -147,12 +134,5 @@ public class PainelControles {
         this.painelTela = new Tela();
     }
 
-    //metodo privado para criar a posição aleatoria na tela
-    private HashMap<String,Integer> posicaoRandomTela() {
-        HashMap<String,Integer> coordenadas = new HashMap<>();
-        final int PADDING = 50;
-        coordenadas.put("HORIZONTAL",sorteio.nextInt(painelTela.getWidth() - PADDING));
-        coordenadas.put("VERTICAL",sorteio.nextInt(painelTela.getHeight() - PADDING));
-        return coordenadas;
-    }
+
 }

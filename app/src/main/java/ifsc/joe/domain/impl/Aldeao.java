@@ -28,6 +28,7 @@ public class Aldeao extends Personagem implements Coletador, Guerreiro {
     }
 
     //implementações de interfaces
+
     @Override
     public void coletar(Recursos recurso){
         if(this.estoque.containsKey(recurso)){
@@ -40,13 +41,8 @@ public class Aldeao extends Personagem implements Coletador, Guerreiro {
     }
 
 
-
-    /**
-     * Desenhando o Aldeão, nas coordenadas X e Y, com a imagem 'icone'
-     * no JPanel 'pai'
-     *
-     * @param g objeto do JPanel que será usado para desenhar o Aldeão
-     */
+    //Implementação metodos abstractos
+    @Override
     public void desenhar(Graphics g, JPanel painel) {
         // verificando qual imagem carregar
         this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : ""));
@@ -54,15 +50,4 @@ public class Aldeao extends Personagem implements Coletador, Guerreiro {
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }
 
-
-    @Override
-    public boolean equals(Object o) {
-        if (!(o instanceof Aldeao aldeao)) return false;
-        return atacando == aldeao.atacando && Objects.equals(estoque, aldeao.estoque);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(atacando, estoque);
-    }
 }

@@ -20,15 +20,13 @@ public class Arqueiro extends Personagem implements Coletador, Guerreiro {
         super(Constantes.VIDA_ARQUEIRO,Constantes.ATAQUE_ARQUEIRO,Constantes.VELOCIDADE_ARQUEIRO,x,y);
         this.icone = this.carregarImagem(NOME_IMAGEM);
         this.atacando = false;
+        this.nro_flechas = Constantes.FlECHAS_INICIAIS;
         this.estoque = new HashMap<>();
         this.estoque.put(Recursos.COMIDA,0);
         this.estoque.put(Recursos.MADEIRA,0);
     }
 
-    public void desenhar(Graphics g, JPanel painel) {
-        this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : ""));
-        g.drawImage(this.icone, this.posX, this.posY, painel);
-    }
+
 
     //metodos de acceso
     public int getNro_flechas() {
@@ -38,15 +36,25 @@ public class Arqueiro extends Personagem implements Coletador, Guerreiro {
         return String.format("-%s:%d\n-%s:%d\n", Recursos.COMIDA,this.estoque.get(Recursos.COMIDA),Recursos.MADEIRA,this.estoque.get(Recursos.MADEIRA));
     }
 
+
     //implementação das interfaces
+
     @Override
     public void atacar() {
         this.atacando = !this.atacando;
     }
+
     @Override
     public void coletar(Recursos recurso) {
         if(this.estoque.containsKey(recurso)){
             this.estoque.put(recurso,this.estoque.get(recurso)+1);
         }
+    }
+
+    //implementação metodos abstractos
+    @Override
+    public void desenhar(Graphics g, JPanel painel) {
+        this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : ""));
+        g.drawImage(this.icone, this.posX, this.posY, painel);
     }
 }

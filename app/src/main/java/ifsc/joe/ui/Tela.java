@@ -1,7 +1,7 @@
 package ifsc.joe.ui;
 
 import ifsc.joe.api.Guerreiro;
-import ifsc.joe.api.Montador;
+import ifsc.joe.api.comMontaria;
 import ifsc.joe.core.Personagem;
 import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.domain.impl.Arqueiro;
@@ -15,20 +15,13 @@ import java.util.Set;
 
 public class Tela extends JPanel {
     private final Set<Personagem> personagens;
-    //private final Set<Aldeao> aldeoes;
-    //private final Set<Arqueiro> arqueiros;
-    //private final Set<Cavaleiro> cavaleiros;
-
 
     public Tela() {
         //TODO preciso ser melhorado
 
         this.setBackground(Color.white);
 
-        //provavelmente vai ser colocados num container so
-        //this.aldeoes = new HashSet<>();
-        //this.arqueiros = new HashSet<>();
-        //this.cavaleiros = new HashSet<>();
+        //Container dos personagems
         this.personagens = new HashSet<>();
     }
 
@@ -40,14 +33,8 @@ public class Tela extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
-        //TODO preciso ser melhorado
-
-        // percorrendo a lista de aldeões e pedindo para cada um se desenhar na tela
+        //desenha qualquer personagem na tela
         this.personagens.forEach(personagem -> personagem.desenhar(g,this));
-        //this.aldeoes.forEach(aldeao -> aldeao.desenhar(g, this));
-        //this.arqueiros.forEach(arqueiro -> arqueiro.desenhar(g, this));
-        //this.cavaleiros.forEach(cavaleiro -> cavaleiro.desenhar(g, this));
-        // liberando o contexto gráfico
         g.dispose();
     }
 
@@ -62,19 +49,17 @@ public class Tela extends JPanel {
         Aldeao a = new Aldeao(x, y);
         a.desenhar(super.getGraphics(), this);
         this.personagens.add(a);
-        //this.aldeoes.add(a);
     }
+
     public void criarArqueiro(int x, int y) {
         Arqueiro a = new Arqueiro(x, y);
         a.desenhar(super.getGraphics(), this);
         this.personagens.add(a);
-        //this.arqueiros.add(a);
     }
     public void criarCavalheiro(int x, int y) {
         Cavaleiro a = new Cavaleiro(x, y);
         a.desenhar(super.getGraphics(), this);
         this.personagens.add(a);
-        //this.cavaleiros.add(a);
     }
 
 
@@ -83,19 +68,6 @@ public class Tela extends JPanel {
      *
      * @param direcao direcao para movimentar
      */
-    public void movimentarAldeoes(Direcao direcao) {
-        //TODO preciso ser melhorado
-        for(Personagem personagem:personagens){
-            if(personagem instanceof Aldeao){
-                personagem.mover(direcao,this.getWidth(), this.getHeight());
-            }
-        }
-//        this.personagens.forEach(aldeao -> aldeao.mover());
-//        this.aldeoes.forEach(aldeao -> aldeao.mover(direcao, this.getWidth(), this.getHeight()));
-
-        // Depois que as coordenadas foram atualizadas é necessário repintar o JPanel
-        this.repaint();
-    }
 
     public void moverPersonagens(String p,Direcao direcao) {
         Class<?> classe_filtro = null;
@@ -119,7 +91,8 @@ public class Tela extends JPanel {
         }
         this.repaint();
     }
-    public void atacarPersonagens(String p) {
+
+    public void atacarGuerreiros(String p) {
         Class<?> classe_filtro = null;
         if (p != null) {
             switch (p) {
@@ -136,39 +109,23 @@ public class Tela extends JPanel {
         }
         for (Personagem personagem : personagens) {
             if ((classe_filtro == null) || (classe_filtro.isInstance(personagem))) {
-                ((Guerreiro)personagem).atacar();
+                if(personagem instanceof Guerreiro) {
+                    ((Guerreiro)personagem).atacar();
+                }
             }
         }
         this.repaint();
     }
 
     public void montarNoCavalo(String p){
-
         for (Personagem personagem : personagens) {
             if ((p == "CAVALEIRO" || p == null) && personagem instanceof Cavaleiro) {
-                ((Montador)personagem).montar();
+                ((comMontaria)personagem).alternarMontado();
             }
         }
         this.repaint();
 
     }
-    /**
-     * Altera o estado do aldeão de atacando para não atacando e vice-versa
-     */
-    public void atacarAldeoes() {
-
-        //TODO preciso ser melhorado
-
-        // Percorrendo a lista de aldeões e pedindo para todos atacarem
-        for(Personagem personagem:personagens){
-            if(personagem instanceof Aldeao){
-                ((Aldeao) personagem).atacar();
-            }
-        }
-        //this.aldeoes.forEach(Aldeao::atacar);
-
-        // Fazendo o JPanel ser redesenhado
-        this.repaint();
-    }
+    
 
 }
