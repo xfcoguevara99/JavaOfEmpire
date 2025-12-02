@@ -42,6 +42,8 @@ public class Tela extends JPanel{
      * @param x coordenada X
      * @param y coordenada Y
      */
+
+
     public void criarAldeao(int x, int y) {
         Aldeao a = new Aldeao(x, y);
         a.desenhar(super.getGraphics(), this);
