@@ -26,7 +26,7 @@ public class Arqueiro extends Personagem implements Coletador, Guerreiro {
     }
 
     public void desenhar(Graphics g, JPanel painel) {
-        this.icone = this.carregarImagem(NOME_IMAGEM);
+        this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : ""));
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }
 

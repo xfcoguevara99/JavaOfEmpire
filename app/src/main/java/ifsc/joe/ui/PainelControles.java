@@ -1,7 +1,5 @@
 package ifsc.joe.ui;
 
-import ifsc.joe.core.Personagem;
-import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
@@ -35,6 +33,7 @@ public class PainelControles {
     private JButton buttonBaixo;
     private JButton buttonDireita;
     private JLabel logo;
+    private JButton montarButton;
 
     public PainelControles() {
         this.sorteio = new Random();
@@ -49,6 +48,7 @@ public class PainelControles {
         configurarBotoesCriacao();
         configurarBotaoAtaque();
         configurarFiltro();
+        configurarBotaoMontar();
 
     }
 
@@ -93,10 +93,9 @@ public class PainelControles {
     /**
      * Configura o listener do botão de ataque
      */
-    private void configurarBotaoAtaque() {
-        atacarButton.addActionListener(e -> getTela().atacarAldeoes());
-    }
-
+   // private void configurarBotaoAtaque() {atacarButton.addActionListener(e -> getTela().atacarAldeoes());}
+    private void configurarBotaoAtaque() {atacarButton.addActionListener(e -> getTela().atacarPersonagens(grupoSel.getSelection().getActionCommand()));}
+    private void configurarBotaoMontar(){montarButton.addActionListener(e ->getTela().montarNoCavalo(grupoSel.getSelection().getActionCommand()));}
     /**
      * Cria um aldeão em posição aleatória na tela.
      */

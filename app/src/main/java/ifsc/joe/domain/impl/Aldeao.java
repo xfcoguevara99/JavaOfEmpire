@@ -55,6 +55,14 @@ public class Aldeao extends Personagem implements Coletador, Guerreiro {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Aldeao aldeao)) return false;
+        return atacando == aldeao.atacando && Objects.equals(estoque, aldeao.estoque);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(atacando, estoque);
+    }
 }

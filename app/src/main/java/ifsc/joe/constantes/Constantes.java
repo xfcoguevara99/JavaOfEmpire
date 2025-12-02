@@ -12,6 +12,6 @@ public final class Constantes {
 
     public static final int VIDA_CAVALEIRO = 35;
     public static final int ATAQUE_CAVALEIRO = 1;
-    public static final double VELOCIDADE_CAVALEIRO = 0.8;
+    public static final double VELOCIDADE_CAVALEIRO = 2;
 
 }

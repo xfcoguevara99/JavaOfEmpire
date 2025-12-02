@@ -28,10 +28,10 @@ public abstract class Personagem {
 
     public void mover(Direcao direcao, int maxLargura, int maxAltura) {
         switch (direcao) {
-            case CIMA     -> this.posY -= 10;
-            case BAIXO    -> this.posY += 10;
-            case ESQUERDA -> this.posX -= 10;
-            case DIREITA  -> this.posX += 10;
+            case CIMA     -> this.posY -= (int) (10*velocidade);
+            case BAIXO    -> this.posY += (int)(10*velocidade);
+            case ESQUERDA -> this.posX -= (int)(10*velocidade);
+            case DIREITA  -> this.posX += (int)(10*velocidade);
         }
 
         //Não deixa a imagem ser desenhada fora dos limites do JPanel pai

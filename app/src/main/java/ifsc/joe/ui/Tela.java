@@ -1,5 +1,7 @@
 package ifsc.joe.ui;
 
+import ifsc.joe.api.Guerreiro;
+import ifsc.joe.api.Montador;
 import ifsc.joe.core.Personagem;
 import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.domain.impl.Arqueiro;
@@ -117,7 +119,39 @@ public class Tela extends JPanel {
         }
         this.repaint();
     }
+    public void atacarPersonagens(String p) {
+        Class<?> classe_filtro = null;
+        if (p != null) {
+            switch (p) {
+                case "ALDEAO":
+                    classe_filtro = Aldeao.class;
+                    break;
+                case "ARQUEIRO":
+                    classe_filtro = Arqueiro.class;
+                    break;
+                case "CAVALEIRO":
+                    classe_filtro = Cavaleiro.class;
+                    break;
+            }
+        }
+        for (Personagem personagem : personagens) {
+            if ((classe_filtro == null) || (classe_filtro.isInstance(personagem))) {
+                ((Guerreiro)personagem).atacar();
+            }
+        }
+        this.repaint();
+    }
 
+    public void montarNoCavalo(String p){
+
+        for (Personagem personagem : personagens) {
+            if ((p == "CAVALEIRO" || p == null) && personagem instanceof Cavaleiro) {
+                ((Montador)personagem).montar();
+            }
+        }
+        this.repaint();
+
+    }
     /**
      * Altera o estado do aldeão de atacando para não atacando e vice-versa
      */
@@ -136,4 +170,5 @@ public class Tela extends JPanel {
         // Fazendo o JPanel ser redesenhado
         this.repaint();
     }
+
 }

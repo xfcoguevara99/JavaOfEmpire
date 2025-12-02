@@ -1,5 +1,5 @@
 package ifsc.joe.api;
 
-public interface Cavaleiro {
+public interface Montador {
     void montar();
 }
