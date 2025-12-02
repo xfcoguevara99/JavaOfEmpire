@@ -4,10 +4,11 @@ import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonListener;
-import java.util.HashMap;
-import java.util.Random;
+import java.awt.*;
+import java.util.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 /**
  * Classe responsável por gerenciar os controles e interações da interface.
@@ -42,8 +43,9 @@ public class PainelControles implements KeyListener{
         this.sorteio = new Random();
         getTela().addKeyListener(this);
         getTela().setFocusable(true);
-        //getTela().setVisible(true);
         configurarListeners();
+        getTela().setFocusTraversalKeysEnabled(false); // desabilita a navegação do focus
+
     }
 
     /**
@@ -55,7 +57,6 @@ public class PainelControles implements KeyListener{
         configurarBotaoAtaque();
         configurarFiltro();
         configurarBotaoMontar();
-
     }
 
     private void configurarFiltro(){
@@ -88,7 +89,7 @@ public class PainelControles implements KeyListener{
         //bCriaAldeao.addActionListener(e -> criarAldeaoAleatorio());
         bCriaAldeao.addActionListener(e -> getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
         bCriaArqueiro.addActionListener(e ->getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
-        bCriaCavaleiro.addActionListener(e -> getTela().criarCavalheiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
+        bCriaCavaleiro.addActionListener(e -> getTela().criarCavaleiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
     }
 
     private void configurarBotaoAtaque() {atacarButton.addActionListener(e -> getTela().atacarGuerreiros(grupoSel.getSelection().getActionCommand()));}
@@ -134,30 +135,72 @@ public class PainelControles implements KeyListener{
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
 
         String tipoPersonagem = grupoSel.getSelection().getActionCommand();
         switch (e.getKeyCode()) {
-            case KeyEvent.VK_DOWN:
+            case KeyEvent.VK_S:
                 getTela().moverPersonagens(tipoPersonagem, Direcao.BAIXO);
                 break;
 
-            case KeyEvent.VK_UP:
+            case KeyEvent.VK_W:
                 getTela().moverPersonagens(tipoPersonagem, Direcao.CIMA);
                 break;
 
-            case KeyEvent.VK_LEFT:
+            case KeyEvent.VK_A:
                 getTela().moverPersonagens(tipoPersonagem, Direcao.ESQUERDA);
                 break;
 
-            case KeyEvent.VK_RIGHT:
+            case KeyEvent.VK_D:
                 getTela().moverPersonagens(tipoPersonagem, Direcao.DIREITA);
                 break;
+
+            case KeyEvent.VK_1:
+                getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+                break;
+
+            case KeyEvent.VK_2:
+                getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+                break;
+
+            case KeyEvent.VK_3:
+                getTela().criarCavaleiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+                break;
+
+            case KeyEvent.VK_SPACE:
+                getTela().atacarGuerreiros(grupoSel.getSelection().getActionCommand());
+                break;
+            case KeyEvent.VK_M:
+                getTela().montarNoCavalo(grupoSel.getSelection().getActionCommand());
+                break;
+            case KeyEvent.VK_TAB:
+
+                List<JRadioButton> a = new ArrayList<>();
+                a.add(todosRadioButton);
+                a.add(aldeaoRadioButton);
+                a.add(arqueiroRadioButton);
+                a.add(cavaleiroRadioButton);
+                String p = grupoSel.getSelection().getActionCommand();
+                if(p != null){
+                    switch (p) {
+                        case "ALDEAO":
+                            arqueiroRadioButton.setSelected(true);
+                            break;
+                        case "ARQUEIRO":
+                            cavaleiroRadioButton.setSelected(true);
+                            break;
+                        case "CAVALEIRO":
+                            todosRadioButton.setSelected(true);
+                            break;
+                    }
+                }else{
+                    aldeaoRadioButton.setSelected(true);
+                }
+
+
             default:
                 // Ignorar outras teclas
                 break;
@@ -165,7 +208,5 @@ public class PainelControles implements KeyListener{
 
     }
     @Override
-    public void keyReleased(KeyEvent e) {
-        // Método opcional
-    }
+    public void keyReleased(KeyEvent e) {}
 }

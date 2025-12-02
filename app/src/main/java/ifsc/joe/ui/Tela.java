@@ -7,11 +7,8 @@ import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.domain.impl.Arqueiro;
 import ifsc.joe.domain.impl.Cavaleiro;
 import ifsc.joe.enums.Direcao;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,10 +16,7 @@ public class Tela extends JPanel{
     private final Set<Personagem> personagens;
 
     public Tela() {
-        //TODO preciso ser melhorado
-
         this.setBackground(Color.white);
-
         //Container dos personagems
         this.personagens = new HashSet<>();
 
@@ -59,7 +53,7 @@ public class Tela extends JPanel{
         a.desenhar(super.getGraphics(), this);
         this.personagens.add(a);
     }
-    public void criarCavalheiro(int x, int y) {
+    public void criarCavaleiro(int x, int y) {
         Cavaleiro a = new Cavaleiro(x, y);
         a.desenhar(super.getGraphics(), this);
         this.personagens.add(a);
