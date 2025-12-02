@@ -57,8 +57,12 @@
                   <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <enabled value="true"/>
+                  <focusPainted value="false"/>
+                  <focusable value="false"/>
                   <icon value="arqueiro.png"/>
-                  <inheritsPopupMenu value="true"/>
+                  <inheritsPopupMenu value="false"/>
+                  <selected value="true"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -67,7 +71,10 @@
                   <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <focusPainted value="false"/>
+                  <focusable value="false"/>
                   <icon value="cavaleiro.png"/>
+                  <requestFocusEnabled value="true"/>
                   <text value=""/>
                 </properties>
               </component>
@@ -78,7 +85,9 @@
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
             </constraints>
-            <properties/>
+            <properties>
+              <focusable value="false"/>
+            </properties>
             <border type="etched" title="Movimentar"/>
             <children>
               <grid id="46276" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -86,7 +95,9 @@
                 <constraints>
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties/>
+                <properties>
+                  <focusable value="false"/>
+                </properties>
                 <border type="none"/>
                 <children>
                   <component id="e0e0d" class="javax.swing.JRadioButton" binding="todosRadioButton" default-binding="true">
@@ -94,6 +105,8 @@
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
                       <selected value="false"/>
                       <text value="Todos" noi18n="true"/>
                     </properties>
@@ -103,7 +116,9 @@
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <selected value="true"/>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <selected value="false"/>
                       <text value="Aldeao"/>
                     </properties>
                   </component>
@@ -112,6 +127,9 @@
                       <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <selected value="false"/>
                       <text value="Arqueiro"/>
                     </properties>
                   </component>
@@ -120,6 +138,9 @@
                       <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
+                      <selected value="false"/>
                       <text value="Cavaleiro"/>
                     </properties>
                   </component>
@@ -143,6 +164,8 @@
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
                       <icon value="cima.png"/>
                       <text value=""/>
                     </properties>
@@ -157,6 +180,8 @@
                       <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
                       <icon value="direita.png"/>
                       <text value=""/>
                     </properties>
@@ -166,6 +191,8 @@
                       <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
                       <icon value="baixo.png"/>
                       <text value=""/>
                     </properties>
@@ -175,6 +202,8 @@
                       <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
+                      <focusPainted value="false"/>
+                      <focusable value="false"/>
                       <icon value="esquerda.png"/>
                       <text value=""/>
                     </properties>
@@ -186,6 +215,8 @@
                   <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <focusPainted value="false"/>
+                  <focusable value="false"/>
                   <text value="Montar"/>
                 </properties>
               </component>
@@ -194,6 +225,8 @@
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <focusPainted value="false"/>
+                  <focusable value="false"/>
                   <text value="Atacar"/>
                 </properties>
               </component>

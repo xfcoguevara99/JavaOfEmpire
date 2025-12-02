@@ -3,14 +3,17 @@ package ifsc.joe.ui;
 import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicButtonListener;
 import java.util.HashMap;
 import java.util.Random;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 /**
  * Classe responsável por gerenciar os controles e interações da interface.
  * Conecta os componentes visuais com a lógica do jogo (Tela).
  */
-public class PainelControles {
+public class PainelControles implements KeyListener{
 
     private final Random sorteio;
     private Tela tela;
@@ -37,6 +40,9 @@ public class PainelControles {
 
     public PainelControles() {
         this.sorteio = new Random();
+        getTela().addKeyListener(this);
+        getTela().setFocusable(true);
+        //getTela().setVisible(true);
         configurarListeners();
     }
 
@@ -69,6 +75,7 @@ public class PainelControles {
      */
     private void configurarBotoesMovimento() {
         buttonCima.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.CIMA));
+        //buttonCima.addKeyListener(UP -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.CIMA));
         buttonBaixo.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.BAIXO));
         buttonEsquerda.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.ESQUERDA));
         buttonDireita.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.DIREITA));
@@ -88,18 +95,6 @@ public class PainelControles {
 
     private void configurarBotaoMontar(){montarButton.addActionListener(e ->getTela().montarNoCavalo(grupoSel.getSelection().getActionCommand()));}
 
-//    private void criarAldeaoAleatorio() {
-//        getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
-//    }
-//
-//    private void criarArqueiroAleatorio() {
-//        getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
-//    }
-//
-//    private void criarCavalheiroAleatorio() {
-//        getTela().criarCavalheiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
-//    }
-
     //metodo privado para criar a posição aleatoria na tela
     private HashMap<String,Integer> posicaoRandomTela() {
         HashMap<String,Integer> coordenadas = new HashMap<>();
@@ -112,7 +107,7 @@ public class PainelControles {
     /**
      * Obtém a referência da Tela com cast seguro.
      */
-    private Tela getTela() {
+    public Tela getTela() {
         if (tela == null) {
             tela = (Tela) painelTela;
         }
@@ -134,5 +129,43 @@ public class PainelControles {
         this.painelTela = new Tela();
     }
 
+    public String getGrupoSel() {
+        return grupoSel.getSelection().getActionCommand();
+    }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        String tipoPersonagem = grupoSel.getSelection().getActionCommand();
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_DOWN:
+                getTela().moverPersonagens(tipoPersonagem, Direcao.BAIXO);
+                break;
+
+            case KeyEvent.VK_UP:
+                getTela().moverPersonagens(tipoPersonagem, Direcao.CIMA);
+                break;
+
+            case KeyEvent.VK_LEFT:
+                getTela().moverPersonagens(tipoPersonagem, Direcao.ESQUERDA);
+                break;
+
+            case KeyEvent.VK_RIGHT:
+                getTela().moverPersonagens(tipoPersonagem, Direcao.DIREITA);
+                break;
+            default:
+                // Ignorar outras teclas
+                break;
+        }
+
+    }
+    @Override
+    public void keyReleased(KeyEvent e) {
+        // Método opcional
+    }
 }

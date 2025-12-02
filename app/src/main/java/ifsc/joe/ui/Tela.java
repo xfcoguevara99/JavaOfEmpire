@@ -10,10 +10,12 @@ import ifsc.joe.enums.Direcao;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Tela extends JPanel {
+public class Tela extends JPanel{
     private final Set<Personagem> personagens;
 
     public Tela() {
@@ -23,6 +25,7 @@ public class Tela extends JPanel {
 
         //Container dos personagems
         this.personagens = new HashSet<>();
+
     }
 
     /**
@@ -126,6 +129,6 @@ public class Tela extends JPanel {
         this.repaint();
 
     }
-    
+
 
 }
