@@ -1,5 +1,5 @@
 package ifsc.joe.enums;
 
-public enum Personagem {
+public enum TipoPersonagem {
     ALDEAO,ARQUEIRO,CAVALEIRO
 }

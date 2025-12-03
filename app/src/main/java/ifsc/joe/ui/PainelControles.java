@@ -1,6 +1,7 @@
 package ifsc.joe.ui;
 
 import ifsc.joe.enums.Direcao;
+import ifsc.joe.enums.TipoPersonagem;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonListener;
@@ -85,11 +86,20 @@ public class PainelControles implements KeyListener{
     /**
      * Configura todos os listeners dos botões de criação
      */
+    private void chamarCriarAldeao(){
+        getTela().criarPersonagem(TipoPersonagem.ALDEAO,posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+    }
+    private void chamarCriarArqueiro(){
+        getTela().criarPersonagem(TipoPersonagem.ARQUEIRO,posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+    }
+    private void chamarCriarCavaleiro(){
+        getTela().criarPersonagem(TipoPersonagem.CAVALEIRO,posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+    }
     private void configurarBotoesCriacao() {
-        //bCriaAldeao.addActionListener(e -> criarAldeaoAleatorio());
-        bCriaAldeao.addActionListener(e -> getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
-        bCriaArqueiro.addActionListener(e ->getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
-        bCriaCavaleiro.addActionListener(e -> getTela().criarCavaleiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL")));
+        bCriaAldeao.addActionListener(e -> chamarCriarAldeao());
+        bCriaArqueiro.addActionListener(e -> chamarCriarArqueiro());
+        bCriaCavaleiro.addActionListener(e -> chamarCriarCavaleiro());
+
     }
 
     private void configurarBotaoAtaque() {atacarButton.addActionListener(e -> getTela().atacarGuerreiros(grupoSel.getSelection().getActionCommand()));}
@@ -159,15 +169,15 @@ public class PainelControles implements KeyListener{
                 break;
 
             case KeyEvent.VK_1:
-                getTela().criarAldeao(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+                chamarCriarAldeao();
                 break;
 
             case KeyEvent.VK_2:
-                getTela().criarArqueiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+                chamarCriarArqueiro();
                 break;
 
             case KeyEvent.VK_3:
-                getTela().criarCavaleiro(posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+                chamarCriarCavaleiro();
                 break;
 
             case KeyEvent.VK_SPACE:
