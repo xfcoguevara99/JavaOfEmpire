@@ -21,15 +21,12 @@ public class Tela extends JPanel{
 
     public Tela() {
         this.setBackground(Color.white);
+
         //Container dos personagems
         this.personagens = new HashSet<>();
 
     }
 
-    /**
-     * Method que invocado sempre que o JPanel precisa ser resenhado.
-     * @param g Graphics componente de java.awt
-     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -39,31 +36,6 @@ public class Tela extends JPanel{
         g.dispose();
     }
 
-    /**
-     * Cria um aldeao nas coordenadas X e Y, desenha-o neste JPanel
-     * e adiciona o mesmo na lista de aldeoes
-     *
-     * @param x coordenada X
-     * @param y coordenada Y
-     */
-
-
-//    public void criarAldeao(int x, int y) {
-//        Aldeao a = new Aldeao(x, y);
-//        a.desenhar(super.getGraphics(), this);
-//        this.personagens.add(a);
-//    }
-//
-//    public void criarArqueiro(int x, int y) {
-//        Arqueiro a = new Arqueiro(x, y);
-//        a.desenhar(super.getGraphics(), this);
-//        this.personagens.add(a);
-//    }
-//    public void criarCavaleiro(int x, int y) {
-//        Cavaleiro a = new Cavaleiro(x, y);
-//        a.desenhar(super.getGraphics(), this);
-//        this.personagens.add(a);
-//    }
     public void criarPersonagem(TipoPersonagem tipo, int x, int y){
         Personagem p = switch (tipo) {
             case TipoPersonagem.ALDEAO -> (Aldeao) criar(tipo, x, y);
@@ -74,26 +46,16 @@ public class Tela extends JPanel{
         personagens.add(p);
     }
 
-    /**
-     * Atualiza as coordenadas X ou Y de todos os aldeoes
-     *
-     * @param direcao direcao para movimentar
-     */
 
     public void moverPersonagens(String p,Direcao direcao) {
         Class<?> classe_filtro = null;
         if (p != null) {
-            switch (p) {
-                case "ALDEAO":
-                    classe_filtro = Aldeao.class;
-                    break;
-                case "ARQUEIRO":
-                    classe_filtro = Arqueiro.class;
-                    break;
-                case "CAVALEIRO":
-                    classe_filtro = Cavaleiro.class;
-                    break;
-            }
+            classe_filtro = switch (p) {
+                case "ALDEAO" -> Aldeao.class;
+                case "ARQUEIRO" -> Arqueiro.class;
+                case "CAVALEIRO" -> Cavaleiro.class;
+                default -> classe_filtro;
+            };
         }
         for (Personagem personagem : personagens) {
             if ((classe_filtro == null) || (classe_filtro.isInstance(personagem))) {
@@ -106,17 +68,12 @@ public class Tela extends JPanel{
     public void atacarGuerreiros(String p) {
         Class<?> classe_filtro = null;
         if (p != null) {
-            switch (p) {
-                case "ALDEAO":
-                    classe_filtro = Aldeao.class;
-                    break;
-                case "ARQUEIRO":
-                    classe_filtro = Arqueiro.class;
-                    break;
-                case "CAVALEIRO":
-                    classe_filtro = Cavaleiro.class;
-                    break;
-            }
+            classe_filtro = switch (p) {
+                case "ALDEAO" -> Aldeao.class;
+                case "ARQUEIRO" -> Arqueiro.class;
+                case "CAVALEIRO" -> Cavaleiro.class;
+                default -> classe_filtro;
+            };
         }
         for (Personagem personagem : personagens) {
             if ((classe_filtro == null) || (classe_filtro.isInstance(personagem))) {
@@ -129,13 +86,26 @@ public class Tela extends JPanel{
     }
 
     public void montarNoCavalo(String p){
+        Class<?> classe_filtro = null;
+        if (p != null) {
+            classe_filtro = switch (p) {
+                case "ALDEAO" -> Aldeao.class;
+                case "ARQUEIRO" -> Arqueiro.class;
+                case "CAVALEIRO" -> Cavaleiro.class;
+                default -> classe_filtro;
+            };
+        }
         for (Personagem personagem : personagens) {
-            if ((p == "CAVALEIRO" || p == null) && personagem instanceof Cavaleiro) {
-                ((comMontaria)personagem).alternarMontado();
+            if ((classe_filtro == null) || (classe_filtro.isInstance(personagem))) {
+                if(personagem instanceof comMontaria) {
+                    ((comMontaria)personagem).alternarMontado();
+                }
+
             }
+
+
         }
         this.repaint();
-
     }
 
 

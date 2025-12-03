@@ -23,9 +23,9 @@ public class Cavaleiro extends Personagem implements Guerreiro, comMontaria {
     @Override
     public void desenhar(Graphics g, JPanel painel) {
         if(noCavalho){
-            this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : "1"));
-        }else{
             this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "4" : "3"));
+        }else{
+            this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : "1"));
         }
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }

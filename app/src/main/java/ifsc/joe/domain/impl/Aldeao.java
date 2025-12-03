@@ -1,27 +1,25 @@
 package ifsc.joe.domain.impl;
 
 import ifsc.joe.api.Coletador;
-import ifsc.joe.api.Guerreiro;
+import ifsc.joe.api.comMontaria;
 import ifsc.joe.constantes.Constantes;
 import ifsc.joe.core.Personagem;
-import ifsc.joe.enums.Direcao;
 import ifsc.joe.enums.Recursos;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Objects;
 
-public class Aldeao extends Personagem implements Coletador, Guerreiro {
+
+public class Aldeao extends Personagem implements Coletador, comMontaria {
 
     public static final String NOME_IMAGEM = "aldeao";
-    private boolean atacando;
+    private boolean noCavalho;
     private HashMap<Recursos, Integer> estoque;
 
     public Aldeao(int x, int y) {
         super(Constantes.VIDA_ALDEAO,Constantes.ATAQUE_ALDEAO,Constantes.VELOCIDADE_ALDEAO,x,y);
         this.icone = this.carregarImagem(NOME_IMAGEM);
-        this.atacando = false;
+        this.noCavalho = false;
         this.estoque = new HashMap<>();
         this.estoque.put(Recursos.COMIDA,0);
         this.estoque.put(Recursos.OURO,0);
@@ -35,19 +33,21 @@ public class Aldeao extends Personagem implements Coletador, Guerreiro {
             this.estoque.put(recurso,this.estoque.get(recurso)+1);
         }
     }
-    @Override
-    public void atacar() {
-        this.atacando = !this.atacando;
-    }
+
 
 
     //Implementação metodos abstractos
     @Override
     public void desenhar(Graphics g, JPanel painel) {
         // verificando qual imagem carregar
-        this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : ""));
+        this.icone = this.carregarImagem(NOME_IMAGEM + (noCavalho ? "2" : "1"));
         // desenhando de fato a imagem no pai
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }
 
+    @Override
+    public void alternarMontado() {
+        this.noCavalho = !this.noCavalho;
+        this.velocidade = this.noCavalho ? Constantes.VELOCIDADE_ALDEAO*2 : Constantes.VELOCIDADE_ALDEAO;
+    }
 }

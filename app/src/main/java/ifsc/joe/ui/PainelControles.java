@@ -62,9 +62,9 @@ public class PainelControles implements KeyListener{
 
     private void configurarFiltro(){
         this.grupoSel = new ButtonGroup();
-        aldeaoRadioButton.setActionCommand("ALDEAO");
-        arqueiroRadioButton.setActionCommand("ARQUEIRO");
-        cavaleiroRadioButton.setActionCommand("CAVALEIRO");
+        aldeaoRadioButton.setActionCommand(TipoPersonagem.ALDEAO.toString());
+        arqueiroRadioButton.setActionCommand(TipoPersonagem.ARQUEIRO.toString());
+        cavaleiroRadioButton.setActionCommand(TipoPersonagem.CAVALEIRO.toString());
         grupoSel.add(todosRadioButton);
         grupoSel.add(aldeaoRadioButton);
         grupoSel.add(cavaleiroRadioButton);
@@ -72,20 +72,13 @@ public class PainelControles implements KeyListener{
         todosRadioButton.setSelected(true);
     }
 
-    /**
-     * Configura todos os listeners dos botões de movimento
-     */
     private void configurarBotoesMovimento() {
         buttonCima.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.CIMA));
-        //buttonCima.addKeyListener(UP -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.CIMA));
         buttonBaixo.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.BAIXO));
         buttonEsquerda.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.ESQUERDA));
         buttonDireita.addActionListener(e -> getTela().moverPersonagens(grupoSel.getSelection().getActionCommand(),Direcao.DIREITA));
     }
 
-    /**
-     * Configura todos os listeners dos botões de criação
-     */
     private void chamarCriarAldeao(){
         getTela().criarPersonagem(TipoPersonagem.ALDEAO,posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
     }
@@ -95,6 +88,7 @@ public class PainelControles implements KeyListener{
     private void chamarCriarCavaleiro(){
         getTela().criarPersonagem(TipoPersonagem.CAVALEIRO,posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
     }
+
     private void configurarBotoesCriacao() {
         bCriaAldeao.addActionListener(e -> chamarCriarAldeao());
         bCriaArqueiro.addActionListener(e -> chamarCriarArqueiro());
@@ -106,6 +100,11 @@ public class PainelControles implements KeyListener{
 
     private void configurarBotaoMontar(){montarButton.addActionListener(e ->getTela().montarNoCavalo(grupoSel.getSelection().getActionCommand()));}
 
+    //Agrupação dos seletores
+    public String getGrupoSel() {
+        return grupoSel.getSelection().getActionCommand();
+    }
+
     //metodo privado para criar a posição aleatoria na tela
     private HashMap<String,Integer> posicaoRandomTela() {
         HashMap<String,Integer> coordenadas = new HashMap<>();
@@ -115,9 +114,6 @@ public class PainelControles implements KeyListener{
         return coordenadas;
     }
 
-    /**
-     * Obtém a referência da Tela com cast seguro.
-     */
     public Tela getTela() {
         if (tela == null) {
             tela = (Tela) painelTela;
@@ -125,9 +121,6 @@ public class PainelControles implements KeyListener{
         return tela;
     }
 
-    /**
-     * Retorna o painel principal para ser adicionado ao JFrame.
-     */
     public JPanel getPainelPrincipal() {
         return painelPrincipal;
     }
@@ -138,10 +131,6 @@ public class PainelControles implements KeyListener{
      */
     private void createUIComponents() {
         this.painelTela = new Tela();
-    }
-
-    public String getGrupoSel() {
-        return grupoSel.getSelection().getActionCommand();
     }
 
     @Override
@@ -209,7 +198,6 @@ public class PainelControles implements KeyListener{
                 }else{
                     aldeaoRadioButton.setSelected(true);
                 }
-
 
             default:
                 // Ignorar outras teclas

@@ -54,7 +54,7 @@ public class Arqueiro extends Personagem implements Coletador, Guerreiro {
     //implementação metodos abstractos
     @Override
     public void desenhar(Graphics g, JPanel painel) {
-        this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : ""));
+        this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : "1"));
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }
 }
