@@ -5,21 +5,29 @@ import ifsc.joe.api.comMontaria;
 import ifsc.joe.constantes.Constantes;
 import ifsc.joe.core.Personagem;
 import ifsc.joe.enums.Recursos;
+import ifsc.joe.enums.TipoPersonagem;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
+import static ifsc.joe.domain.impl.RecursoManager.carregarCache;
+import static ifsc.joe.domain.impl.RecursoManager.getImagem;
+import static ifsc.joe.domain.impl.RecursoManager.imagens;
 
 
 public class Aldeao extends Personagem implements Coletador, comMontaria {
 
-    public static final String NOME_IMAGEM = "aldeao";
+    //public static final String NOME_IMAGEM = "aldeao";
     private boolean noCavalho;
     private HashMap<Recursos, Integer> estoque;
 
     public Aldeao(int x, int y) {
         super(Constantes.VIDA_ALDEAO,Constantes.ATAQUE_ALDEAO,Constantes.VELOCIDADE_ALDEAO,x,y);
-        this.icone = this.carregarImagem(NOME_IMAGEM);
         this.noCavalho = false;
+        if(!imagens.containsKey(TipoPersonagem.ALDEAO.toString().toLowerCase())){
+            carregarCache(TipoPersonagem.ALDEAO.toString().toLowerCase());
+        }
+        this.icone = getImagem(TipoPersonagem.ALDEAO.toString().toLowerCase());
         this.estoque = new HashMap<>();
         this.estoque.put(Recursos.COMIDA,0);
         this.estoque.put(Recursos.OURO,0);
@@ -40,7 +48,11 @@ public class Aldeao extends Personagem implements Coletador, comMontaria {
     @Override
     public void desenhar(Graphics g, JPanel painel) {
         // verificando qual imagem carregar
-        this.icone = this.carregarImagem(NOME_IMAGEM + (noCavalho ? "2" : "1"));
+        String nomeImagem = TipoPersonagem.ALDEAO.toString().toLowerCase() + (noCavalho ? "2" : "1");
+        if(!imagens.containsKey(nomeImagem)){
+            carregarCache(nomeImagem);
+        }
+        this.icone = getImagem(nomeImagem);
         // desenhando de fato a imagem no pai
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }

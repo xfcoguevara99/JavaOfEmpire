@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
 
-import static ifsc.joe.domain.impl.Aldeao.NOME_IMAGEM;
+
 
 public abstract class Personagem {
     protected int vida,ataque,posX,posY;
@@ -19,7 +19,8 @@ public abstract class Personagem {
         this.velocidade = velocidade;
         this.posX = posX;
         this.posY = posY;
-        this.icone = this.carregarImagem(NOME_IMAGEM);
+
+        //this.icone = this.carregarImagem(NOME_IMAGEM);
     }
 
     public void sofrerDano(int dano){
@@ -39,11 +40,11 @@ public abstract class Personagem {
         this.posY = Math.min(Math.max(0, this.posY), maxAltura - this.icone.getHeight(null));
     }
 
-    protected Image carregarImagem(String imagem) {
-        return new ImageIcon(Objects.requireNonNull(
-                getClass().getClassLoader().getResource("./"+imagem+".png")
-        )).getImage();
-    }
+//    protected Image carregarImagem(String imagem) {
+//        return new ImageIcon(Objects.requireNonNull(
+//                getClass().getClassLoader().getResource("./"+imagem+".png")
+//        )).getImage();
+//    }
 
     //metodos abastractos
     public abstract void desenhar(Graphics g, JPanel painel);

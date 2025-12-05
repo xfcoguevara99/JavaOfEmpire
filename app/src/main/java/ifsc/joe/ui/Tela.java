@@ -6,7 +6,9 @@ import ifsc.joe.core.Personagem;
 import ifsc.joe.domain.impl.Aldeao;
 import ifsc.joe.domain.impl.Arqueiro;
 import ifsc.joe.domain.impl.Cavaleiro;
+import ifsc.joe.domain.impl.RecursoManager;
 import ifsc.joe.enums.Direcao;
+import ifsc.joe.enums.Recursos;
 import ifsc.joe.enums.TipoPersonagem;
 
 import javax.swing.*;
@@ -18,12 +20,15 @@ import static ifsc.joe.domain.impl.PersonagemFactory.criar;
 
 public class Tela extends JPanel{
     private final Set<Personagem> personagens;
-
+    private RecursoManager cache_img;
     public Tela() {
         this.setBackground(Color.white);
 
         //Container dos personagems
         this.personagens = new HashSet<>();
+        cache_img = new RecursoManager();
+        System.out.println(TipoPersonagem.ALDEAO.toString().toLowerCase());
+
 
     }
 
@@ -38,7 +43,9 @@ public class Tela extends JPanel{
 
     public void criarPersonagem(TipoPersonagem tipo, int x, int y){
         Personagem p = switch (tipo) {
-            case TipoPersonagem.ALDEAO -> (Aldeao) criar(tipo, x, y);
+            case TipoPersonagem.ALDEAO ->
+
+                    (Aldeao) criar(tipo, x, y);
             case TipoPersonagem.ARQUEIRO -> (Arqueiro) criar(tipo, x, y);
             case TipoPersonagem.CAVALEIRO -> (Cavaleiro) criar(tipo, x, y);
         };
