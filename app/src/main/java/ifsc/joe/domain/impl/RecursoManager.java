@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class RecursoManager {
-     public static HashMap<String, Image> imagens;
+   public static HashMap<String, Image> imagens;
 
     public RecursoManager() {
         imagens = new HashMap<>();

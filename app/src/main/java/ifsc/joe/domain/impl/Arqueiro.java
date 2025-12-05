@@ -5,21 +5,26 @@ import ifsc.joe.api.Guerreiro;
 import ifsc.joe.constantes.Constantes;
 import ifsc.joe.core.Personagem;
 import ifsc.joe.enums.Recursos;
+import ifsc.joe.enums.TipoPersonagem;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+import static ifsc.joe.domain.impl.RecursoManager.*;
+
 public class Arqueiro extends Personagem implements Coletador, Guerreiro {
-    public static final String NOME_IMAGEM = "arqueiro";
     private int nro_flechas;
     private boolean atacando;
     HashMap<Recursos, Integer> estoque;
 
     public Arqueiro(int x, int y) {
         super(Constantes.VIDA_ARQUEIRO,Constantes.ATAQUE_ARQUEIRO,Constantes.VELOCIDADE_ARQUEIRO,x,y);
-        this.icone = this.carregarImagem(NOME_IMAGEM);
         this.atacando = false;
+        if(!imagens.containsKey(TipoPersonagem.ARQUEIRO.toString().toLowerCase())){
+            carregarCache(TipoPersonagem.ARQUEIRO.toString().toLowerCase());
+        }
+        this.icone = getImagem(TipoPersonagem.ARQUEIRO.toString().toLowerCase());
         this.nro_flechas = Constantes.FlECHAS_INICIAIS;
         this.estoque = new HashMap<>();
         this.estoque.put(Recursos.COMIDA,0);
@@ -32,6 +37,7 @@ public class Arqueiro extends Personagem implements Coletador, Guerreiro {
     public int getNro_flechas() {
         return nro_flechas;
     }
+
     public String getEstoque() {
         return String.format("-%s:%d\n-%s:%d\n", Recursos.COMIDA,this.estoque.get(Recursos.COMIDA),Recursos.MADEIRA,this.estoque.get(Recursos.MADEIRA));
     }
@@ -54,7 +60,11 @@ public class Arqueiro extends Personagem implements Coletador, Guerreiro {
     //implementação metodos abstractos
     @Override
     public void desenhar(Graphics g, JPanel painel) {
-        this.icone = this.carregarImagem(NOME_IMAGEM + (atacando ? "2" : "1"));
+        String nomeImagem = TipoPersonagem.ARQUEIRO.toString().toLowerCase() + (atacando ? "2" : "1");
+        if(!imagens.containsKey(nomeImagem)){
+            carregarCache(nomeImagem);
+        }
+        this.icone = getImagem(nomeImagem);
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }
 }
