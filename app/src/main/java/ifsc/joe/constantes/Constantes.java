@@ -14,4 +14,5 @@ public final class Constantes {
     public static final int ATAQUE_CAVALEIRO = 4;
     public static final double VELOCIDADE_CAVALEIRO = 2;
 
+    public static final int RAIO_COLETA = 60;
 }

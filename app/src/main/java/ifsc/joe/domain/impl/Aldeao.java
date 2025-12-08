@@ -57,6 +57,7 @@ public class Aldeao extends Personagem implements Coletador, comMontaria {
         g.drawImage(this.icone, this.posX, this.posY, painel);
     }
 
+
     @Override
     public void alternarMontado() {
         this.noCavalho = !this.noCavalho;

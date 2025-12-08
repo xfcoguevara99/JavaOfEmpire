@@ -12,6 +12,7 @@ import ifsc.joe.enums.TipoPersonagem;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -108,6 +109,18 @@ public class Tela extends JPanel{
 
         }
         this.repaint();
+    }
+
+    private HashMap<String,Double> pontoMedio(Image icono){
+        HashMap<String,Double> coordenada = new HashMap<>();
+        coordenada.put("x",icono.getWidth(null)/2.0);
+        coordenada.put("y",icono.getHeight(null)/2.0);
+        return coordenada;
+    }
+
+
+    public void colherRecursos(){
+
     }
 
 
