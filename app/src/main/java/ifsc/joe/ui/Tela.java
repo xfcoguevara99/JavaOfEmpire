@@ -3,11 +3,9 @@ package ifsc.joe.ui;
 import ifsc.joe.api.Guerreiro;
 import ifsc.joe.api.comMontaria;
 import ifsc.joe.core.Personagem;
-import ifsc.joe.domain.impl.Aldeao;
-import ifsc.joe.domain.impl.Arqueiro;
-import ifsc.joe.domain.impl.Cavaleiro;
-import ifsc.joe.domain.impl.RecursoManager;
+import ifsc.joe.domain.impl.*;
 import ifsc.joe.enums.Direcao;
+import ifsc.joe.enums.Recursos;
 import ifsc.joe.enums.TipoPersonagem;
 
 import javax.swing.*;
@@ -21,9 +19,9 @@ import static ifsc.joe.domain.impl.PersonagemFactory.criar;
 public class Tela extends JPanel{
     private final Set<Personagem> personagens;
     private RecursoManager cache_img;
+    private RecursoFactory recursoNaTela;
     public Tela() {
         this.setBackground(Color.white);
-
         //Container dos personagems
         this.personagens = new HashSet<>();
         cache_img = new RecursoManager();
@@ -32,7 +30,6 @@ public class Tela extends JPanel{
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-
         //desenha qualquer personagem na tela
         this.personagens.forEach(personagem -> personagem.desenhar(g,this));
         g.dispose();
@@ -44,8 +41,9 @@ public class Tela extends JPanel{
             case TipoPersonagem.ARQUEIRO -> (Arqueiro) criar(tipo, x, y);
             case TipoPersonagem.CAVALEIRO -> (Cavaleiro) criar(tipo, x, y);
         };
-        p.desenhar(super.getGraphics(), this);
+        //p.desenhar(super.getGraphics(), this);
         personagens.add(p);
+        this.repaint();
     }
 
 
@@ -103,21 +101,24 @@ public class Tela extends JPanel{
                 if(personagem instanceof comMontaria) {
                     ((comMontaria)personagem).alternarMontado();
                 }
-
             }
-
-
         }
         this.repaint();
     }
 
-    private HashMap<String,Double> pontoMedio(Image icono){
-        HashMap<String,Double> coordenada = new HashMap<>();
-        coordenada.put("x",icono.getWidth(null)/2.0);
-        coordenada.put("y",icono.getHeight(null)/2.0);
+    private HashMap<String,Integer> pontoMedio(Image icono){
+        HashMap<String,Integer> coordenada = new HashMap<>();
+        coordenada.put("x",icono.getWidth(null)/2);
+        coordenada.put("y",icono.getHeight(null)/2);
         return coordenada;
     }
 
+    public void criarRecursos(Recursos tipo,int x,int y){
+        RecursoFactory r = new RecursoFactory(tipo,x,y);
+        this.repaint();
+        System.out.println("HOLA");
+
+    }
 
     public void colherRecursos(){
 

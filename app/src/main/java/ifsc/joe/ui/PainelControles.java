@@ -1,15 +1,19 @@
 package ifsc.joe.ui;
 
 import ifsc.joe.enums.Direcao;
+import ifsc.joe.enums.Recursos;
 import ifsc.joe.enums.TipoPersonagem;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonListener;
+import javax.swing.Timer;
 import java.awt.*;
 import java.util.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Classe responsável por gerenciar os controles e interações da interface.
@@ -46,7 +50,15 @@ public class PainelControles implements KeyListener{
         getTela().setFocusable(true);
         configurarListeners();
         getTela().setFocusTraversalKeysEnabled(false); // desabilita a navegação do focus
+        chamarCriarRecuros();
+    }
 
+    private void chamarCriarRecuros(){
+        Recursos tipoRecurso = Arrays.asList(Recursos.values()).get(sorteio.nextInt(3));
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        //HashMap<String,Integer> coordenada = posicaoRandomTela();
+        executor.scheduleAtFixedRate(() -> {getTela().criarRecursos(tipoRecurso,posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
+        }, 1, 5, TimeUnit.SECONDS);
     }
 
     /**

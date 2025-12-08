@@ -53,4 +53,5 @@ public abstract class Personagem {
     public int getVida() {return vida;}
     public int getAtaque() {return ataque;}
     public double getVelocidade() {return velocidade;}
+    public Image getIcone() {return icone;}
 }
