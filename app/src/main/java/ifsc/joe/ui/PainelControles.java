@@ -42,6 +42,9 @@ public class PainelControles implements KeyListener{
     private JLabel logo;
     private JButton montarButton;
     private JButton coletarButton;
+    private JLabel Ouro;
+    private JLabel Comida;
+    private JLabel Madeira;
 
     public PainelControles() {
         this.sorteio = new Random();
@@ -113,10 +116,22 @@ public class PainelControles implements KeyListener{
 
     private void configurarBotaoMontar(){montarButton.addActionListener(e ->getTela().montarNoCavalo(grupoSel.getSelection().getActionCommand()));}
 
-    private void configurarBotaoColetar(){
-
-        coletarButton.addActionListener(e -> getTela().colherRecursos(grupoSel.getSelection().getActionCommand()));
+    private void chamarColetarRecuros(){
+        getTela().colherRecursos(grupoSel.getSelection().getActionCommand());
+        atualizarEstoque();
     }
+
+    private void configurarBotaoColetar(){
+        coletarButton.addActionListener(e -> chamarColetarRecuros());
+    }
+
+    public void atualizarEstoque(){
+        this.Ouro.setText("Ouro:" + getTela().getRecursoNaTela().get(Recursos.OURO.toString()));
+        this.Comida.setText("Comida:" + getTela().getRecursoNaTela().get(Recursos.COMIDA.toString()));
+        this.Madeira.setText("Madeira:" + getTela().getRecursoNaTela().get(Recursos.MADEIRA.toString()));
+        System.out.println("Entrou");
+    }
+
     //Agrupação dos seletores
     public String getGrupoSel() {
         return grupoSel.getSelection().getActionCommand();
@@ -172,6 +187,9 @@ public class PainelControles implements KeyListener{
 
             case KeyEvent.VK_D:
                 getTela().moverPersonagens(tipoPersonagem, Direcao.DIREITA);
+                break;
+            case KeyEvent.VK_R:
+                chamarColetarRecuros();
                 break;
 
             case KeyEvent.VK_1:

@@ -20,13 +20,18 @@ import static ifsc.joe.domain.impl.PersonagemFactory.criar;
 
 public class Tela extends JPanel{
     private final Set<Personagem> personagens;
-    private ImageCache cache_img;
+    private ImageCache cache_img; //Classe que contem o repositorio de imagens
     private RecursoFactory recursoNaTela;
+    private HashMap<String,Integer> recursosColetados;
     public Tela() {
         this.setBackground(Color.white);
         //Container dos personagems
         this.personagens = new HashSet<>();
         cache_img = new ImageCache();
+        recursosColetados = new HashMap<>();
+        recursosColetados.put(Recursos.OURO.toString(), 0);
+        recursosColetados.put(Recursos.COMIDA.toString(), 0);
+        recursosColetados.put(Recursos.MADEIRA.toString(), 0);
     }
 
     @Override
@@ -158,8 +163,8 @@ public class Tela extends JPanel{
         for (Personagem personagem : personagens) {
             if ((classe_filtro == null) || (classe_filtro.isInstance(personagem))) {
                 if((personagem instanceof Coletador) && this.distanciaEntreObjetos(personagem,recursoNaTela)){
-                    //System.out.println(this.distanciaEntreObjetos(personagem.getIcone(),recursoNaTela.getIcone()));
                     if(((Coletador) personagem).coletar(recursoNaTela.getTipo())){
+                        this.recursosColetados.put(recursoNaTela.getTipo().toString(),this.recursosColetados.get(recursoNaTela.getTipo().toString())+1);
                         recursoNaTela = null;
                         break;
                     }
@@ -169,7 +174,9 @@ public class Tela extends JPanel{
         }
         this.repaint();
     }
-
+     public HashMap<String,Integer> getRecursoNaTela(){
+        return this.recursosColetados;
+     }
 
 
 }
