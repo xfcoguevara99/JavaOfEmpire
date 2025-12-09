@@ -9,7 +9,7 @@ import ifsc.joe.enums.TipoPersonagem;
 import javax.swing.*;
 import java.awt.*;
 
-import static ifsc.joe.domain.impl.RecursoManager.*;
+import static ifsc.joe.domain.impl.ImageCache.*;
 
 public class Cavaleiro extends Personagem implements Guerreiro, comMontaria {
     private boolean noCavalho;

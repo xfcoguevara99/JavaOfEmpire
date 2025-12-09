@@ -1,22 +1,20 @@
 package ifsc.joe.domain.impl;
 
-import ifsc.joe.enums.TipoPersonagem;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Objects;
 
-public class RecursoManager {
+public class ImageCache {
    public static HashMap<String, Image> imagens;
 
-    public RecursoManager() {
+    public ImageCache() {
         imagens = new HashMap<>();
     }
 
     public static void carregarCache(String nomeImagem){
         Image imagem = new ImageIcon(Objects.requireNonNull(
-            RecursoManager.class.getClassLoader().getResource("./"+nomeImagem+".png")
+            ImageCache.class.getClassLoader().getResource("./"+nomeImagem+".png")
         )).getImage();
         imagens.put(nomeImagem, imagem);
     }

@@ -11,9 +11,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-import static ifsc.joe.domain.impl.RecursoManager.*;
+import static ifsc.joe.domain.impl.ImageCache.*;
 
-public class Arqueiro extends Personagem implements Coletador, Guerreiro {
+public class Arqueiro extends Personagem implements Coletador, Guerreiro{
     private int nro_flechas;
     private boolean atacando;
     HashMap<Recursos, Integer> estoque;
@@ -51,10 +51,12 @@ public class Arqueiro extends Personagem implements Coletador, Guerreiro {
     }
 
     @Override
-    public void coletar(Recursos recurso) {
+    public boolean coletar(Recursos recurso) {
         if(this.estoque.containsKey(recurso)){
             this.estoque.put(recurso,this.estoque.get(recurso)+1);
+            return true;
         }
+        return false;
     }
 
     //implementação metodos abstractos

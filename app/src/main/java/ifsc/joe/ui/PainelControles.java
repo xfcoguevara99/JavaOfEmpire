@@ -5,8 +5,6 @@ import ifsc.joe.enums.Recursos;
 import ifsc.joe.enums.TipoPersonagem;
 
 import javax.swing.*;
-import javax.swing.Timer;
-import java.awt.*;
 import java.util.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -43,6 +41,7 @@ public class PainelControles implements KeyListener{
     private JButton buttonDireita;
     private JLabel logo;
     private JButton montarButton;
+    private JButton coletarButton;
 
     public PainelControles() {
         this.sorteio = new Random();
@@ -50,15 +49,16 @@ public class PainelControles implements KeyListener{
         getTela().setFocusable(true);
         configurarListeners();
         getTela().setFocusTraversalKeysEnabled(false); // desabilita a navegação do focus
-        chamarCriarRecuros();
+
+        //agenda um evento(chamarCriarRecurso)
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        executor.scheduleAtFixedRate(this::chamarCriarRecursos, 1, 5, TimeUnit.SECONDS);
     }
 
-    private void chamarCriarRecuros(){
-        Recursos tipoRecurso = Arrays.asList(Recursos.values()).get(sorteio.nextInt(3));
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        //HashMap<String,Integer> coordenada = posicaoRandomTela();
-        executor.scheduleAtFixedRate(() -> {getTela().criarRecursos(tipoRecurso,posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
-        }, 1, 5, TimeUnit.SECONDS);
+    private void chamarCriarRecursos(){
+        Recursos tipoRecurso = Arrays.asList(Recursos.values()).get(this.sorteio.nextInt(3));
+        System.out.println(tipoRecurso.name());
+        getTela().criarRecursos(tipoRecurso,posicaoRandomTela().get("HORIZONTAL"),posicaoRandomTela().get("VERTICAL"));
     }
 
     /**
@@ -70,6 +70,7 @@ public class PainelControles implements KeyListener{
         configurarBotaoAtaque();
         configurarFiltro();
         configurarBotaoMontar();
+        configurarBotaoColetar();
     }
 
     private void configurarFiltro(){
@@ -112,6 +113,10 @@ public class PainelControles implements KeyListener{
 
     private void configurarBotaoMontar(){montarButton.addActionListener(e ->getTela().montarNoCavalo(grupoSel.getSelection().getActionCommand()));}
 
+    private void configurarBotaoColetar(){
+
+        coletarButton.addActionListener(e -> getTela().colherRecursos(grupoSel.getSelection().getActionCommand()));
+    }
     //Agrupação dos seletores
     public String getGrupoSel() {
         return grupoSel.getSelection().getActionCommand();

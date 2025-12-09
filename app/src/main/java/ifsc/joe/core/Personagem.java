@@ -54,4 +54,10 @@ public abstract class Personagem {
     public int getAtaque() {return ataque;}
     public double getVelocidade() {return velocidade;}
     public Image getIcone() {return icone;}
+    public int getPosX(){
+        return this.posX;
+    }
+    public int getPosY(){
+        return this.posY;
+    }
 }

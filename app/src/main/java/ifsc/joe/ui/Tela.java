@@ -1,7 +1,9 @@
 package ifsc.joe.ui;
 
+import ifsc.joe.api.Coletador;
 import ifsc.joe.api.Guerreiro;
 import ifsc.joe.api.comMontaria;
+import ifsc.joe.constantes.Constantes;
 import ifsc.joe.core.Personagem;
 import ifsc.joe.domain.impl.*;
 import ifsc.joe.enums.Direcao;
@@ -18,13 +20,13 @@ import static ifsc.joe.domain.impl.PersonagemFactory.criar;
 
 public class Tela extends JPanel{
     private final Set<Personagem> personagens;
-    private RecursoManager cache_img;
+    private ImageCache cache_img;
     private RecursoFactory recursoNaTela;
     public Tela() {
         this.setBackground(Color.white);
         //Container dos personagems
         this.personagens = new HashSet<>();
-        cache_img = new RecursoManager();
+        cache_img = new ImageCache();
     }
 
     @Override
@@ -32,6 +34,9 @@ public class Tela extends JPanel{
         super.paint(g);
         //desenha qualquer personagem na tela
         this.personagens.forEach(personagem -> personagem.desenhar(g,this));
+        if(this.recursoNaTela != null){
+            this.recursoNaTela.desenhar(g,this);
+        }
         g.dispose();
     }
 
@@ -106,23 +111,65 @@ public class Tela extends JPanel{
         this.repaint();
     }
 
-    private HashMap<String,Integer> pontoMedio(Image icono){
+    private HashMap<String,Integer> pontoMedio(Object objeto){
+
         HashMap<String,Integer> coordenada = new HashMap<>();
-        coordenada.put("x",icono.getWidth(null)/2);
-        coordenada.put("y",icono.getHeight(null)/2);
+        if(objeto instanceof Personagem){
+            coordenada.put("x",((Personagem) objeto).getIcone().getWidth(null)/2 + ((Personagem) objeto).getPosX());
+            coordenada.put("y",((Personagem) objeto).getIcone().getWidth(null)/2 + ((Personagem) objeto).getPosY());
+        }else if(objeto instanceof RecursoFactory){
+            coordenada.put("x",((RecursoFactory) objeto).getIcone().getWidth(null)/2 + ((RecursoFactory) objeto).getPosX());
+            coordenada.put("y",((RecursoFactory) objeto).getIcone().getWidth(null)/2 + ((RecursoFactory) objeto).getPosY());
+
+        }
+
         return coordenada;
     }
 
+    private boolean distanciaEntreObjetos(Object obj1,Object obj2){
+        HashMap<String,Integer> coordenadaObj1 = pontoMedio(obj1);
+        HashMap<String,Integer> coordenadaObj2 = pontoMedio(obj2);
+        double distancia = Math.hypot(Math.abs(coordenadaObj1.get("x")-coordenadaObj2.get("x")), Math.abs(coordenadaObj1.get("y")-coordenadaObj2.get("y")));
+        if(distancia< Constantes.RAIO_COLETA){
+            System.out.println(distancia);
+            return true;
+        }
+        return false;
+    }
+
+
     public void criarRecursos(Recursos tipo,int x,int y){
-        RecursoFactory r = new RecursoFactory(tipo,x,y);
+        this.recursoNaTela = new RecursoFactory(tipo,x,y);
         this.repaint();
-        System.out.println("HOLA");
 
     }
 
-    public void colherRecursos(){
+    public void colherRecursos(String p){
+        if(recursoNaTela == null){return;}
+        Class<?> classe_filtro = null;
+        if (p != null) {
+            classe_filtro = switch (p) {
+                case "ALDEAO" -> Aldeao.class;
+                case "ARQUEIRO" -> Arqueiro.class;
+                case "CAVALEIRO" -> Cavaleiro.class;
+                default -> classe_filtro;
+            };
+        }
+        for (Personagem personagem : personagens) {
+            if ((classe_filtro == null) || (classe_filtro.isInstance(personagem))) {
+                if((personagem instanceof Coletador) && this.distanciaEntreObjetos(personagem,recursoNaTela)){
+                    //System.out.println(this.distanciaEntreObjetos(personagem.getIcone(),recursoNaTela.getIcone()));
+                    if(((Coletador) personagem).coletar(recursoNaTela.getTipo())){
+                        recursoNaTela = null;
+                        break;
+                    }
 
+                }
+            }
+        }
+        this.repaint();
     }
+
 
 
 }

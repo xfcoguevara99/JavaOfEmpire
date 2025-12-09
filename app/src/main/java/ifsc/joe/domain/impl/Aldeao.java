@@ -10,9 +10,9 @@ import ifsc.joe.enums.TipoPersonagem;
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
-import static ifsc.joe.domain.impl.RecursoManager.carregarCache;
-import static ifsc.joe.domain.impl.RecursoManager.getImagem;
-import static ifsc.joe.domain.impl.RecursoManager.imagens;
+import static ifsc.joe.domain.impl.ImageCache.carregarCache;
+import static ifsc.joe.domain.impl.ImageCache.getImagem;
+import static ifsc.joe.domain.impl.ImageCache.imagens;
 
 
 public class Aldeao extends Personagem implements Coletador, comMontaria {
@@ -36,10 +36,12 @@ public class Aldeao extends Personagem implements Coletador, comMontaria {
     //implementações de interfaces
 
     @Override
-    public void coletar(Recursos recurso){
+    public boolean coletar(Recursos recurso){
         if(this.estoque.containsKey(recurso)){
             this.estoque.put(recurso,this.estoque.get(recurso)+1);
+            return true;
         }
+        return false;
     }
 
 
