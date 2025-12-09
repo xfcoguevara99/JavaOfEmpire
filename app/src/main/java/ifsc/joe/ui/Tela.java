@@ -21,7 +21,7 @@ import static ifsc.joe.domain.impl.PersonagemFactory.criar;
 public class Tela extends JPanel{
     private final Set<Personagem> personagens;
     private ImageCache cache_img; //Classe que contem o repositorio de imagens
-    private RecursoFactory recursoNaTela;
+    private Recurso recursoNaTela;
     private HashMap<String,Integer> recursosColetados;
     public Tela() {
         this.setBackground(Color.white);
@@ -122,9 +122,9 @@ public class Tela extends JPanel{
         if(objeto instanceof Personagem){
             coordenada.put("x",((Personagem) objeto).getIcone().getWidth(null)/2 + ((Personagem) objeto).getPosX());
             coordenada.put("y",((Personagem) objeto).getIcone().getWidth(null)/2 + ((Personagem) objeto).getPosY());
-        }else if(objeto instanceof RecursoFactory){
-            coordenada.put("x",((RecursoFactory) objeto).getIcone().getWidth(null)/2 + ((RecursoFactory) objeto).getPosX());
-            coordenada.put("y",((RecursoFactory) objeto).getIcone().getWidth(null)/2 + ((RecursoFactory) objeto).getPosY());
+        }else if(objeto instanceof Recurso){
+            coordenada.put("x",((Recurso) objeto).getIcone().getWidth(null)/2 + ((Recurso) objeto).getPosX());
+            coordenada.put("y",((Recurso) objeto).getIcone().getWidth(null)/2 + ((Recurso) objeto).getPosY());
 
         }
 
@@ -144,7 +144,7 @@ public class Tela extends JPanel{
 
 
     public void criarRecursos(Recursos tipo,int x,int y){
-        this.recursoNaTela = new RecursoFactory(tipo,x,y);
+        this.recursoNaTela = new Recurso(tipo,x,y);
         this.repaint();
 
     }
